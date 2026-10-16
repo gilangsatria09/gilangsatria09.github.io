@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light}html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<meta name="description" content="Portfolio of Gilang Satria, a Flutter and native Android developer.">
+<title>Gilang Satria</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky identity column on the left, work and career on the right. Career is drawn as a Gantt bar chart where bar colour marks native Android vs Flutter. */
+:root {
+  --bg: #f3f5f8;
+  --surface: #ffffff;
+  --fg: #14181f;
+  --muted: #566070;
+  --line: #d9dee6;
+  --accent: #1f4fd8;
+  --accent-ink: #ffffff;
+  --native: #0f8a6b;
+  --flutter: #1f4fd8;
+  --wash: #e7ecf6;
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1218;
+    --surface: #171b23;
+    --fg: #e8ebf1;
+    --muted: #98a2b3;
+    --line: #2a313d;
+    --accent: #7c9cff;
+    --accent-ink: #0f1218;
+    --native: #3dc9a1;
+    --flutter: #7c9cff;
+    --wash: #1c2230;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1218;
+  --surface: #171b23;
+  --fg: #e8ebf1;
+  --muted: #98a2b3;
+  --line: #2a313d;
+  --accent: #7c9cff;
+  --accent-ink: #0f1218;
+  --native: #3dc9a1;
+  --flutter: #7c9cff;
+  --wash: #1c2230;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  padding-block: 40px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.1; }
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+.page { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 48px; }
+@media (min-width: 900px) {
+  .page { grid-template-columns: 300px minmax(0, 1fr); gap: 72px; }
+  .side { position: sticky; top: 40px; align-self: start; }
+}
+
+/* Side column */
+.side { display: flex; flex-direction: column; gap: 28px; min-width: 0; }
+.name { font-size: clamp(2.4rem, 6vw, 3.2rem); font-weight: 700; letter-spacing: -0.02em; }
+.role { font-family: var(--font-mono); font-size: 0.82rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 10px; }
+.lede { color: var(--muted); max-width: 34ch; }
+.contact { display: flex; flex-direction: column; gap: 10px; font-size: 0.95rem; }
+.contact .row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.contact .label { font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; width: 64px; flex: none; }
+.contact .val { user-select: all; overflow-wrap: anywhere; min-width: 0; }
+.btn {
+  font: inherit; font-size: 0.82rem; font-weight: 500; cursor: pointer;
+  background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 4px; padding: 5px 12px;
+}
+.btn.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); }
+.nav { display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--font-mono); font-size: 0.82rem; }
+.nav a { color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--line); }
+.nav a:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Main */
+main { display: flex; flex-direction: column; gap: 64px; min-width: 0; }
+section { display: flex; flex-direction: column; gap: 24px; min-width: 0; scroll-margin-top: 24px; }
+.eyebrow { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+h2 { font-size: clamp(1.6rem, 3.4vw, 2.1rem); font-weight: 700; letter-spacing: -0.015em; }
+.hero-line { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.7rem, 4vw, 2.5rem); line-height: 1.18; letter-spacing: -0.015em; max-width: 24ch; text-wrap: balance; }
+.hero-line em { font-style: normal; color: var(--accent); }
+.about { max-width: 62ch; color: var(--muted); }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.fact { padding: 18px 16px 18px 0; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.fact + .fact { padding-left: 16px; border-left: 1px solid var(--line); }
+@media (max-width: 560px) {
+  .fact { padding-left: 0 !important; border-left: 0 !important; }
+  .fact + .fact { border-top: 1px solid var(--line); }
+}
+.fact .n { font-family: var(--font-display); font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.fact .t { font-size: 0.86rem; color: var(--muted); }
+
+.section-note { color: var(--muted); font-size: 0.92rem; max-width: 62ch; margin-top: -8px; }
+
+/* Projects */
+.projects { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.proj { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 22px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.proj.lead { border-color: var(--accent); }
+.proj header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.proj h3 { font-size: 1.3rem; font-weight: 700; }
+.proj .meta { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted); }
+.proj p { color: var(--muted); max-width: 66ch; }
+.proj ul { display: flex; flex-direction: column; gap: 8px; }
+.proj li { position: relative; padding-left: 18px; max-width: 66ch; }
+.proj li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 8px; height: 1px; background: var(--accent); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-family: var(--font-mono); font-size: 0.74rem; background: var(--wash); color: var(--fg); border-radius: 3px; padding: 2px 8px; }
+
+.shots { display: flex; gap: 16px; overflow-x: auto; padding: 4px 0 12px; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; }
+.shot { margin: 0; flex: 0 0 210px; display: flex; flex-direction: column; gap: 8px; scroll-snap-align: start; }
+.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--wash); }
+.shot figcaption { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted); }
+.proj p.notice { background: var(--wash); color: var(--fg); border-left: 3px solid var(--accent); border-radius: 3px; padding: 10px 14px; font-size: 0.92rem; }
+.stores { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 4px; }
+.store { display: inline-flex; align-items: center; background: var(--accent); color: var(--accent-ink); text-decoration: none; font-weight: 500; font-size: 0.9rem; border-radius: 4px; padding: 8px 16px; }
+.store:hover { opacity: 0.88; }
+.store:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+
+/* Case study */
+.story { display: grid; grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--line); margin: 0; }
+@media (min-width: 640px) { .story { grid-template-columns: 180px minmax(0, 1fr); column-gap: 28px; } }
+.story dt { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; padding-top: 16px; }
+.story dd { margin: 0; padding: 8px 0 16px; max-width: 66ch; border-bottom: 1px solid var(--line); }
+@media (min-width: 640px) { .story dt { padding: 16px 0; border-bottom: 1px solid var(--line); } .story dd { padding: 14px 0; } }
+
+.arch { margin: 0; display: flex; flex-direction: column; gap: 14px; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 22px; }
+.arch-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+.module { border: 1px solid var(--accent); border-radius: 6px; padding: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0; background: var(--bg); }
+.module h3 { font-size: 1rem; font-weight: 700; }
+.module.base { border-style: dashed; border-color: var(--muted); }
+.module.base p { color: var(--muted); font-size: 0.88rem; }
+.layers { display: flex; flex-direction: column; gap: 6px; }
+.layers li { background: var(--wash); border-radius: 4px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.layers b { font-family: var(--font-mono); font-size: 0.74rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+.layers span { font-size: 0.84rem; color: var(--muted); overflow-wrap: anywhere; }
+.arch-rule { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted); text-align: center; }
+.arch-link { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 0.76rem; color: var(--accent); }
+.arch-link .arrow { font-size: 1.1rem; line-height: 1; }
+.arch-base { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.arch figcaption { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted); }
+
+.goal { font-size: 0.92rem; max-width: 34ch; border-left: 3px solid var(--accent); padding-left: 12px; }
+
+/* Career chart */
+.legend { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 0.86rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend i { width: 14px; height: 8px; border-radius: 2px; display: inline-block; }
+.chart { position: relative; display: flex; flex-direction: column; gap: 18px; padding-top: 28px; }
+.ticks { position: absolute; inset: 0; pointer-events: none; }
+.tick { position: absolute; top: 0; bottom: 0; border-left: 1px dashed var(--line); }
+.tick b { position: absolute; top: 0; left: 4px; font-family: var(--font-mono); font-size: 0.7rem; font-weight: 400; color: var(--muted); }
+.job { position: relative; display: flex; flex-direction: column; gap: 6px; }
+.job .cap { font-size: 0.88rem; line-height: 1.35; }
+.job .cap strong { font-weight: 600; }
+.job .cap span { color: var(--muted); font-family: var(--font-mono); font-size: 0.74rem; margin-left: 6px; }
+.track { position: relative; height: 12px; }
+.bar { position: absolute; top: 0; bottom: 0; border-radius: 3px; }
+.bar.native { background: var(--native); }
+.bar.flutter { background: var(--flutter); }
+.bar.now::after { content: ""; position: absolute; right: -1px; top: -3px; bottom: -3px; width: 2px; background: var(--fg); border-radius: 1px; }
+
+.timeline { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.role-item { display: grid; grid-template-columns: 1fr; gap: 10px; padding: 26px 0; border-bottom: 1px solid var(--line); }
+@media (min-width: 640px) { .role-item { grid-template-columns: 180px minmax(0, 1fr); gap: 28px; } }
+.role-item .when { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+.role-item h3 { font-size: 1.2rem; font-weight: 700; }
+.role-item .co { color: var(--muted); font-size: 0.92rem; margin-top: 2px; }
+.role-item ul { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.role-item li { position: relative; padding-left: 18px; max-width: 68ch; }
+.role-item li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 8px; height: 1px; background: var(--accent); }
+.role-item .body { min-width: 0; }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--line); }
+@media (min-width: 640px) { .skills { grid-template-columns: 180px minmax(0, 1fr); column-gap: 28px; } }
+.skills dt { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; padding-top: 16px; }
+.skills dd { margin: 0; padding: 8px 0 16px; border-bottom: 1px solid var(--line); }
+@media (min-width: 640px) { .skills dt { padding: 16px 0; border-bottom: 1px solid var(--line); } .skills dd { padding: 12px 0; } }
+
+.edu { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.edu .card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 18px 20px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.edu h3 { font-size: 1.05rem; font-weight: 700; }
+.edu .sub { color: var(--muted); font-size: 0.92rem; }
+.edu .meta { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted); margin-top: 6px; }
+
+footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted); padding-top: 8px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn { transition: opacity 0.15s; }
+  .btn:hover { opacity: 0.85; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <aside class="side">
+    <div>
+      <h1 class="name">Gilang Satria</h1>
+      <p class="role">Mobile Developer</p>
+    </div>
+    <p class="lede">Flutter and native Android developer with 6+ years of experience, working on auctions, payments and regional government services.</p>
+    <p class="goal">Open to senior or lead mobile roles, remote Flutter positions, and mobile products with AI features.</p>
+    <div class="contact">
+      <div class="row">
+        <span class="label">Email</span>
+        <span class="val" id="email">gsatria253@gmail.com</span>
+        <button class="btn" id="copy-email" type="button">Copy</button>
+      </div>
+      <div class="row">
+        <span class="label">LinkedIn</span>
+        <a class="val" href="https://www.linkedin.com/in/gilang-satria-ab5231192" target="_blank" rel="noopener">gilang-satria-ab5231192</a>
+      </div>
+      <div class="row">
+        <span class="label">Based in</span>
+        <span class="val">Depok, Indonesia</span>
+      </div>
+    </div>
+    <nav class="nav" aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#project">Project</a>
+      <a href="#career">Career</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+    </nav>
+  </aside>
+
+  <main>
+    <section id="about">
+      <p class="hero-line">Mobile apps for <em>auctions, payments</em> and field work.</p>
+      <p class="about">I started in native Android in 2019 and have built in Flutter since 2020. My work centers on transaction reliability, security and performance. At PT Serasi Autoraya I rewrote the IBID auction app from scratch as v3.0, as its only code contributor, and earlier helped migrate the auction platform from native Android and iOS to Flutter with zero downtime.</p>
+      <div class="facts">
+        <div class="fact"><span class="n">6+</span><span class="t">years in mobile, since 2019</span></div>
+        <div class="fact"><span class="n">75%</span><span class="t">unit-test coverage on bidding logic</span></div>
+        <div class="fact"><span class="n">152</span><span class="t">analytics events instrumented</span></div>
+        <div class="fact"><span class="n">0</span><span class="t">downtime in the Flutter migration</span></div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div>
+        <p class="eyebrow">Selected work</p>
+        <h2>Things I have built</h2>
+      </div>
+      <p class="section-note">Source code for this work belongs to the companies I built it for, so it is not public. I am happy to walk through the architecture in an interview.</p>
+      <div class="projects">
+        <article class="proj lead">
+          <header>
+            <h3>IBID v3.0 auction app</h3>
+            <span class="meta">PT Serasi Autoraya · 2023 to now</span>
+          </header>
+          <p>A from-scratch rewrite of the IBID auction app, built for long-term scalability and maintainability. I am the sole code contributor.</p>
+          <ul>
+            <li>Structured with Clean Architecture, modularization and BLoC.</li>
+            <li>Wrote AI-assisted development guidelines (Claude Code skills and markdown rule files) that encode the architecture layers, module boundaries and BLoC conventions, so generated code stays consistent with the project.</li>
+            <li>Carried over from v2.0: root detection, USB debugging restrictions and SSL pinning against fraud.</li>
+            <li>Also carried over from v2.0: Firebase Realtime Database listeners that only run while the relevant screens are active, which cuts battery and mobile data use.</li>
+            <li>Unit testing and Amplitude analytics are planned for v3.0. Both are currently in v2.0.</li>
+          </ul>
+          <div class="tags"><span class="tag">Flutter</span><span class="tag">BLoC</span><span class="tag">Clean Architecture</span><span class="tag">Firebase RTDB</span><span class="tag">SSL pinning</span></div>
+          <p class="notice"><strong>Note:</strong> v3.0 is still in progress and is not released yet. The version currently on the Play Store and App Store is v2.0.</p>
+        </article>
+
+        <article class="proj">
+          <header>
+            <h3>IBID v2.0, native apps to Flutter</h3>
+            <span class="meta">PT Serasi Autoraya · mobile team</span>
+          </header>
+          <p>Migrated the core auction platform from separate native Android and iOS apps to a single Flutter codebase with the mobile team. The result reached full feature parity with zero downtime. This is the version currently on the Play Store and App Store.</p>
+          <ul>
+            <li>State management uses BLoC, the same pattern as v3.0.</li>
+            <li>Root detection, USB debugging restrictions, SSL pinning and lifecycle-aware Firebase Realtime Database listeners (lower battery and data use) are in both v2.0 and v3.0.</li>
+            <li>Set up the unit-testing framework and raised coverage to 75%, focused on critical business logic behind high-value bidding transactions.</li>
+            <li>Instrumented 152 Amplitude events, used to investigate suspicious bidding flagged through user complaints and to guide product decisions.</li>
+          </ul>
+          <div class="tags"><span class="tag">Flutter</span><span class="tag">BLoC</span><span class="tag">Native Android</span><span class="tag">Native iOS</span><span class="tag">Migration</span><span class="tag">Unit testing</span><span class="tag">Amplitude</span></div>
+          <div class="shots" role="group" aria-label="IBID v2.0 screenshots">
+            <figure class="shot">
+              <img src="shots/home.jpg" width="520" height="1052" alt="IBID v2.0 home screen with promo banners, auction categories and the nearest auction schedule" loading="lazy">
+              <figcaption>Home</figcaption>
+            </figure>
+            <figure class="shot">
+              <img src="shots/schedule.jpg" width="520" height="1052" alt="IBID v2.0 auction schedule screen with categories and live and upcoming auctions" loading="lazy">
+              <figcaption>Auction schedule</figcaption>
+            </figure>
+            <figure class="shot">
+              <img src="shots/detail.jpg" width="520" height="1052" alt="IBID v2.0 item detail screen with grade, base price, views and a live auction badge" loading="lazy">
+              <figcaption>Item detail</figcaption>
+            </figure>
+            <figure class="shot">
+              <img src="shots/live.jpg" width="520" height="1052" alt="IBID v2.0 live auction screen with lot photo, grade, specification and current bid" loading="lazy">
+              <figcaption>Live auction</figcaption>
+            </figure>
+          </div>
+          <div class="stores">
+            <a class="store" href="https://play.google.com/store/apps/details?id=com.sera.ibid" target="_blank" rel="noopener">Get it on Google Play</a>
+            <a class="store" href="https://apps.apple.com/us/app/ibid-balai-lelang-astra/id1501501381" target="_blank" rel="noopener">Download on the App Store</a>
+          </div>
+        </article>
+
+        <article class="proj">
+          <header>
+            <h3>Regional government platform</h3>
+            <span class="meta">PT. Sarana Pactindo · 2022 to 2023</span>
+          </header>
+          <p>A multi-service app that combines a Marketplace and an E-Catalogue for regional government use.</p>
+          <ul>
+            <li>Managed state across modules with BLoC, Cubit and MobX.</li>
+            <li>Implemented Virtual Account and QRIS payments for real-time tax and levy collection.</li>
+          </ul>
+          <div class="tags"><span class="tag">Flutter</span><span class="tag">BLoC / Cubit</span><span class="tag">MobX</span><span class="tag">QRIS</span><span class="tag">Virtual Account</span></div>
+        </article>
+
+        <article class="proj">
+          <header>
+            <h3>Field-officer EDC apps</h3>
+            <span class="meta">PT. Sarana Pactindo</span>
+          </header>
+          <p>Android EDC apps for field officers who collect parking fees, waste levies and tax payments, integrated with thermal printers and hardware scanners.</p>
+          <div class="tags"><span class="tag">Android</span><span class="tag">EDC</span><span class="tag">Thermal printers</span><span class="tag">Scanners</span></div>
+        </article>
+
+        <article class="proj">
+          <header>
+            <h3>Layanan Pajak tax app</h3>
+            <span class="meta">PT. Sarana Pactindo</span>
+          </header>
+          <p>I handled release management on Android and iOS: builds, signing and submissions to Google Play and the App Store.</p>
+          <div class="tags"><span class="tag">Release management</span><span class="tag">Google Play</span><span class="tag">App Store</span></div>
+        </article>
+
+        <article class="proj">
+          <header>
+            <h3>IAPI</h3>
+            <span class="meta">Birutekno Inc · 2020 to 2021</span>
+          </header>
+          <p>A Flutter app for Indonesian accountants covering member registration, event schedules and event listings. I owned the release cycle from build and signing to store submission and updates, and integrated Firebase Cloud Messaging and the Google Maps API.</p>
+          <div class="tags"><span class="tag">Flutter</span><span class="tag">FCM</span><span class="tag">Google Maps API</span></div>
+        </article>
+
+        <article class="proj">
+          <header>
+            <h3>Native Android apps</h3>
+            <span class="meta">Birutekno Inc · 2019 to 2020</span>
+          </header>
+          <p>Built SEROJA, Sherish and Pramukasapa for Google Play, plus a wedding-guest invitation app distributed outside the store. I also maintained production apps such as the Yellow Truck Coffee app and an Umrah travel booking app, fixing bugs, updating SDKs and shipping new releases.</p>
+          <div class="tags"><span class="tag">Java</span><span class="tag">Kotlin</span><span class="tag">Google Play</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="architecture">
+      <div>
+        <p class="eyebrow">Case study</p>
+        <h2>Why IBID v3.0 is modular</h2>
+      </div>
+      <p class="about">v2.0 was built by a team, and the structure showed it. For v3.0 I rewrote the app alone and organized it so that several developers can build features at the same time without getting in each other's way.</p>
+
+      <dl class="story">
+        <dt>The problem in v2.0</dt>
+        <dd>The project structure was a poor decision, and so was the navigation library, which was also implemented poorly. Early in development every developer worked in their own style, so the codebase became messy.</dd>
+        <dt>The decision</dt>
+        <dd>Split the app into feature modules, backed by Clean Architecture and BLoC. I chose modularization for scalability and maintainability, and to reduce conflicts when several features are built in parallel.</dd>
+        <dt>The rules</dt>
+        <dd>Each feature module must stand by itself. Anything shared lives in a shared feature module or the core module, and features pull those in through a path dependency in pubspec.yaml, managed with Melos.</dd>
+        <dt>Consistency</dt>
+        <dd>The same conventions apply in every module: how routes work, and how the data model, entity, use case, repository and data source are written. I wrote them into AI-assisted development guidelines (Claude Code skills and markdown rule files), so generated code follows them too.</dd>
+      </dl>
+
+      <figure class="arch" aria-label="Module diagram: independent feature modules, each with presentation, domain and data layers, depend on a shared feature module and a core module through path dependencies.">
+        <div class="arch-features">
+          <div class="module">
+            <h3>Feature module</h3>
+            <ul class="layers">
+              <li><b>Presentation</b><span>BLoC</span></li>
+              <li><b>Domain</b><span>entity, use case, repository</span></li>
+              <li><b>Data</b><span>model, data source, repository impl</span></li>
+            </ul>
+          </div>
+          <div class="module">
+            <h3>Feature module</h3>
+            <ul class="layers">
+              <li><b>Presentation</b><span>BLoC</span></li>
+              <li><b>Domain</b><span>entity, use case, repository</span></li>
+              <li><b>Data</b><span>model, data source, repository impl</span></li>
+            </ul>
+          </div>
+          <div class="module">
+            <h3>Feature module</h3>
+            <ul class="layers">
+              <li><b>Presentation</b><span>BLoC</span></li>
+              <li><b>Domain</b><span>entity, use case, repository</span></li>
+              <li><b>Data</b><span>model, data source, repository impl</span></li>
+            </ul>
+          </div>
+        </div>
+        <p class="arch-rule" aria-hidden="true">Features stand alone and do not depend on each other</p>
+        <div class="arch-link" aria-hidden="true">
+          <span class="arrow">&darr;</span>
+          <span class="path">path dependency in pubspec.yaml &middot; Melos</span>
+          <span class="arrow">&darr;</span>
+        </div>
+        <div class="arch-base">
+          <div class="module base"><h3>Shared feature</h3><p>Used by more than one feature</p></div>
+          <div class="module base"><h3>Core</h3><p>Common foundation for every module</p></div>
+        </div>
+        <figcaption>IBID v3.0 module structure</figcaption>
+      </figure>
+    </section>
+
+    <section id="project">
+      <div>
+        <p class="eyebrow">Public project</p>
+        <h2>Code you can read</h2>
+      </div>
+      <article class="proj">
+        <header>
+          <h3>CC Expense Tracker</h3>
+          <span class="meta">Personal project · Flutter · 2026</span>
+        </header>
+        <p>An app I built to track my own credit-card and pay-later spending. It handles statement cut-off dates, split group orders, installments and recurring subscriptions. All data stays on the device, with no backend or account.</p>
+        <ul>
+          <li>Clean Architecture with BLoC, get_it for dependency injection and Drift (SQLite) for local storage.</li>
+          <li>An optional receipt reader that sends a photo to the Gemini API and fills in the split-bill items.</li>
+          <li>Local reminders, JSON import, and backup and restore.</li>
+          <li>Unit and widget tests written with bloc_test and mocktail.</li>
+          <li>Layered but not modular, on purpose. One developer and one small app have no need for module boundaries, which is the opposite of the IBID v3.0 case above.</li>
+        </ul>
+        <div class="tags"><span class="tag">Flutter</span><span class="tag">BLoC</span><span class="tag">Clean Architecture</span><span class="tag">Drift</span><span class="tag">get_it</span><span class="tag">SQLite</span><span class="tag">Gemini API</span></div>
+        <div class="shots" role="group" aria-label="CC Expense Tracker screenshots">
+          <figure class="shot">
+            <img src="shots/cc-transaksi.jpg" width="520" height="1046" alt="CC Expense Tracker transactions list for October 2026 with status filters and payment status labels" loading="lazy">
+            <figcaption>Transactions</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="shots/cc-cicilan.jpg" width="520" height="1046" alt="CC Expense Tracker installments screen with progress bars and remaining balance" loading="lazy">
+            <figcaption>Installments</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="shots/cc-subscription.jpg" width="520" height="1046" alt="CC Expense Tracker subscriptions screen with monthly amounts and next billing dates" loading="lazy">
+            <figcaption>Subscriptions</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="shots/cc-dashboard.jpg" width="520" height="1046" alt="CC Expense Tracker dashboard with credit limit, outstanding balance and total due this month" loading="lazy">
+            <figcaption>Dashboard</figcaption>
+          </figure>
+        </div>
+        <div class="stores">
+          <a class="store" href="https://github.com/gilangsatria09/cc_expense_tracker" target="_blank" rel="noopener">View on GitHub</a>
+        </div>
+      </article>
+    </section>
+
+    <section id="career">
+      <div>
+        <p class="eyebrow">Career</p>
+        <h2>From native Android to Flutter</h2>
+      </div>
+      <div class="legend">
+        <span><i style="background: var(--native)"></i>Native Android (Java, Kotlin)</span>
+        <span><i style="background: var(--flutter)"></i>Flutter</span>
+      </div>
+
+      <div class="chart" role="img" aria-label="Career chart from October 2019 to the present: Birutekno Android, then Birutekno Flutter, then Sarana Pactindo, then Serasi Autoraya.">
+        <div class="ticks" aria-hidden="true">
+          <div class="tick" style="left: 3.6%"><b>2020</b></div>
+          <div class="tick" style="left: 17.9%"><b>2021</b></div>
+          <div class="tick" style="left: 32.1%"><b>2022</b></div>
+          <div class="tick" style="left: 46.4%"><b>2023</b></div>
+          <div class="tick" style="left: 60.7%"><b>2024</b></div>
+          <div class="tick" style="left: 75%"><b>2025</b></div>
+          <div class="tick" style="left: 89.3%"><b>2026</b></div>
+        </div>
+        <div class="job">
+          <div class="cap"><strong>Birutekno Inc</strong><span>Android Developer</span></div>
+          <div class="track"><div class="bar native" style="left: 0%; width: 11.9%"></div></div>
+        </div>
+        <div class="job">
+          <div class="cap"><strong>Birutekno Inc</strong><span>Mobile Developer</span></div>
+          <div class="track"><div class="bar flutter" style="left: 11.9%; width: 20.2%"></div></div>
+        </div>
+        <div class="job">
+          <div class="cap"><strong>PT. Sarana Pactindo</strong><span>Mobile Developer</span></div>
+          <div class="track"><div class="bar flutter" style="left: 32.1%; width: 27.4%"></div></div>
+        </div>
+        <div class="job">
+          <div class="cap"><strong>PT Serasi Autoraya</strong><span>Mobile Developer</span></div>
+          <div class="track"><div class="bar flutter now" style="left: 59.5%; width: 40.5%"></div></div>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <article class="role-item">
+          <div class="when">12/2023 to present<br>Jakarta</div>
+          <div class="body">
+            <h3>Mobile Developer</h3>
+            <p class="co">PT Serasi Autoraya (PT Balai Lelang Serasi)</p>
+            <ul>
+              <li>Rewrote the IBID auction app from scratch as v3.0 with Clean Architecture, modularization and BLoC, as sole code contributor.</li>
+              <li>Created AI-assisted development guidelines that keep generated code consistent with the project architecture.</li>
+              <li>Migrated the core auction platform from native Android and iOS to Flutter (v2.0) with the mobile team, with full feature parity and zero downtime.</li>
+              <li>Set up the unit-testing framework and raised coverage to 75%, focused on critical business logic behind high-value bidding transactions.</li>
+              <li>Instrumented 152 analytics events in Amplitude to investigate suspicious bidding activity and guide product decisions.</li>
+              <li>Used lifecycle-aware Firebase Realtime Database listeners to reduce battery and mobile data usage.</li>
+              <li>Hardened the app against fraud with root detection, USB debugging restrictions and SSL pinning.</li>
+            </ul>
+          </div>
+        </article>
+        <article class="role-item">
+          <div class="when">01/2022 to 11/2023<br>Bandung</div>
+          <div class="body">
+            <h3>Mobile Developer</h3>
+            <p class="co">PT. Sarana Pactindo (PT. Transaksi Monitor Digital)</p>
+            <ul>
+              <li>Started on contract (01/2022 to 12/2022), then continued full-time from 01/2023.</li>
+              <li>Built a multi-service government platform combining Marketplace and E-Catalogue in a single app.</li>
+              <li>Developed Android EDC apps for field officers collecting parking, waste levies and tax payments, with thermal printer and hardware scanner integration.</li>
+              <li>Implemented Virtual Account and QRIS payments for real-time tax and levy collection.</li>
+              <li>Managed complex app state across modules using BLoC, Cubit and MobX.</li>
+              <li>Handled release management for the Layanan Pajak tax app on Android and iOS.</li>
+            </ul>
+          </div>
+        </article>
+        <article class="role-item">
+          <div class="when">08/2020 to 12/2021<br>Bandung</div>
+          <div class="body">
+            <h3>Mobile Developer</h3>
+            <p class="co">Birutekno Inc</p>
+            <ul>
+              <li>Continued on contract, moving from native Android to Flutter.</li>
+              <li>Built IAPI in Flutter for Indonesian accountants.</li>
+              <li>Contributed to early-phase development of ACSET, a project management app, before leaving mid-development.</li>
+              <li>Owned the end-to-end release cycle: build, signing, store submission and updates.</li>
+              <li>Integrated Firebase Cloud Messaging for push notifications and the Google Maps API for location-based features.</li>
+            </ul>
+          </div>
+        </article>
+        <article class="role-item">
+          <div class="when">10/2019 to 07/2020<br>Bandung</div>
+          <div class="body">
+            <h3>Android Developer</h3>
+            <p class="co">Birutekno Inc</p>
+            <ul>
+              <li>Started as an intern (10/2019 to 12/2019), then converted to a contract Android Developer from 01/2020.</li>
+              <li>Built native Android apps in Java and Kotlin: SEROJA, Sherish and Pramukasapa on Google Play, plus a wedding-guest invitation app distributed outside the store.</li>
+              <li>Maintained the Yellow Truck Coffee app and an Umrah travel booking app: fixed bugs, updated SDKs and dependencies, and shipped the updated releases.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div>
+        <p class="eyebrow">Skills</p>
+        <h2>What I work with</h2>
+      </div>
+      <dl class="skills">
+        <dt>Languages</dt><dd>Dart, Flutter, Kotlin, Java, Swift/Xcode (iOS integration)</dd>
+        <dt>Architecture</dt><dd>Clean Architecture, SOLID, Modularization</dd>
+        <dt>State management</dt><dd>BLoC/Cubit, MobX</dd>
+        <dt>Backend and services</dt><dd>Firebase (RTDB, Firestore, FCM), REST APIs, Amplitude, Google Maps API</dd>
+        <dt>Payments and hardware</dt><dd>Virtual Account, QRIS, EDC integration, thermal printers, scanners</dd>
+        <dt>Security</dt><dd>Root detection, SSL pinning</dd>
+        <dt>Testing</dt><dd>Unit testing</dd>
+        <dt>Release</dt><dd>Build flavors and schemes, App Links / Universal Links, Play Store and App Store releases</dd>
+        <dt>AI-assisted dev</dt><dd>Claude Code</dd>
+        <dt>Spoken languages</dt><dd>Bahasa Indonesia (native), English (professional working proficiency)</dd>
+      </dl>
+    </section>
+
+    <section id="education">
+      <div>
+        <p class="eyebrow">Education</p>
+        <h2>Studying while working</h2>
+      </div>
+      <div class="edu">
+        <div class="card">
+          <h3>Universitas Terbuka</h3>
+          <p class="sub">Bachelor, Information Systems</p>
+          <p class="sub">Coursework: Software Engineering, Data Structures</p>
+          <p class="meta">09/2024 to present · Expected graduation 2028</p>
+        </div>
+        <div class="card">
+          <h3>SMKN 4 Bandung</h3>
+          <p class="sub">Vocational High School Diploma, Software Engineering</p>
+          <p class="meta">2017 to 2020 · Bandung</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>Gilang Satria · Depok, Indonesia</footer>
+  </main>
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById("copy-email");
+  var el = document.getElementById("email");
+  btn.addEventListener("click", function () {
+    var text = el.textContent.trim();
+    function selectText() {
+      var r = document.createRange();
+      r.selectNodeContents(el);
+      var s = window.getSelection();
+      s.removeAllRanges();
+      s.addRange(r);
+      btn.textContent = "Selected";
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = "Copied";
+      }, selectText);
+    } else {
+      selectText();
+    }
+    setTimeout(function () { btn.textContent = "Copy"; }, 1800);
+  });
+})();
+</script>
+</body>
+</html>
