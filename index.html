@@ -290,7 +290,7 @@ footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted);
             <h3>IBID v2.0, native apps to Flutter</h3>
             <span class="meta">PT Serasi Autoraya · mobile team</span>
           </header>
-          <p>Migrated the core auction platform from separate native Android and iOS apps to a single Flutter codebase with the mobile team. The result reached full feature parity with zero downtime. This is the version currently on the Play Store and App Store.</p>
+          <p>Migrated the core auction platform from separate native Android and iOS apps to a single Flutter codebase with the mobile team. All existing features kept working, with zero downtime. This is the version currently on the Play Store and App Store.</p>
           <ul>
             <li>State management uses BLoC, the same pattern as v3.0.</li>
             <li>Root detection, USB debugging restrictions, SSL pinning and lifecycle-aware Firebase Realtime Database listeners (lower battery and data use) are in both v2.0 and v3.0.</li>
@@ -324,50 +324,58 @@ footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted);
 
         <article class="proj">
           <header>
-            <h3>Regional government platform</h3>
+            <h3>LanggananTa super app</h3>
             <span class="meta">PT. Sarana Pactindo · 2022 to 2023</span>
           </header>
-          <p>A multi-service app that combines a Marketplace and an E-Catalogue for regional government use.</p>
+          <p>A super app for regional governments with five sub-apps: Pasar, Sentral UMKM, E-Katalog, E-Katalog Lokal, and Layanan Pajak &amp; Retribusi.</p>
           <ul>
-            <li>Managed state across modules with BLoC, Cubit and MobX.</li>
-            <li>Implemented Virtual Account and QRIS payments for real-time tax and levy collection.</li>
+            <li>Managed complex state across modules with BLoC, Cubit and MobX.</li>
           </ul>
-          <div class="tags"><span class="tag">Flutter</span><span class="tag">BLoC / Cubit</span><span class="tag">MobX</span><span class="tag">QRIS</span><span class="tag">Virtual Account</span></div>
+          <div class="tags"><span class="tag">Flutter</span><span class="tag">BLoC / Cubit</span><span class="tag">MobX</span><span class="tag">Super app</span></div>
         </article>
 
         <article class="proj">
           <header>
-            <h3>Field-officer EDC apps</h3>
+            <h3>Layanan Pajak</h3>
             <span class="meta">PT. Sarana Pactindo</span>
           </header>
-          <p>Android EDC apps for field officers who collect parking fees, waste levies and tax payments, integrated with thermal printers and hardware scanners.</p>
-          <div class="tags"><span class="tag">Android</span><span class="tag">EDC</span><span class="tag">Thermal printers</span><span class="tag">Scanners</span></div>
+          <p>Taxpayers check their tax bills and pay through Virtual Account or QRIS. I built the payment flows and handled the Android and iOS releases: builds, signing and submissions to Google Play and the App Store.</p>
+          <div class="tags"><span class="tag">QRIS</span><span class="tag">Virtual Account</span><span class="tag">Release management</span><span class="tag">Google Play</span><span class="tag">App Store</span></div>
         </article>
 
         <article class="proj">
           <header>
-            <h3>Layanan Pajak tax app</h3>
+            <h3>Simpada: Retribusi and TMD Spark</h3>
             <span class="meta">PT. Sarana Pactindo</span>
           </header>
-          <p>I handled release management on Android and iOS: builds, signing and submissions to Google Play and the App Store.</p>
-          <div class="tags"><span class="tag">Release management</span><span class="tag">Google Play</span><span class="tag">App Store</span></div>
+          <p>Two Android EDC apps for field officers: Simpada: Retribusi collects garbage and market levies, and TMD Spark supports parking enforcement. Both accept cash, QRIS and debit, and integrate with thermal printers and scanners.</p>
+          <div class="tags"><span class="tag">Android</span><span class="tag">EDC</span><span class="tag">QRIS</span><span class="tag">Thermal printers</span><span class="tag">Scanners</span></div>
         </article>
 
         <article class="proj">
           <header>
-            <h3>IAPI</h3>
+            <h3>IAPI Mobile</h3>
             <span class="meta">Birutekno Inc · 2020 to 2021</span>
           </header>
-          <p>A Flutter app for Indonesian accountants covering member registration, event schedules and event listings. I owned the release cycle from build and signing to store submission and updates, and integrated Firebase Cloud Messaging and the Google Maps API.</p>
+          <p>The Flutter mobile version of the Front Office of the Indonesian Institute of Public Accountants (IAPI), giving users direct access to information on all IAPI services. I owned the release cycle from build and signing to store submission and updates, and integrated Firebase Cloud Messaging and the Google Maps API.</p>
           <div class="tags"><span class="tag">Flutter</span><span class="tag">FCM</span><span class="tag">Google Maps API</span></div>
         </article>
 
         <article class="proj">
           <header>
-            <h3>Native Android apps</h3>
+            <h3>PramukaSapa</h3>
+            <span class="meta">Birutekno Inc · 2020</span>
+          </header>
+          <p>An Android reporting app integrated with the BPOM internal website. Scout Movement members use it to report expired, damaged or unauthorized processed food found in circulation.</p>
+          <div class="tags"><span class="tag">Android</span><span class="tag">Reporting</span></div>
+        </article>
+
+        <article class="proj">
+          <header>
+            <h3>SEROJA, DIGIBIKES and Sherish</h3>
             <span class="meta">Birutekno Inc · 2019 to 2020</span>
           </header>
-          <p>Built SEROJA, Sherish and Pramukasapa for Google Play, plus a wedding-guest invitation app distributed outside the store. I also maintained production apps such as the Yellow Truck Coffee app and an Umrah travel booking app, fixing bugs, updating SDKs and shipping new releases.</p>
+          <p>Native Android apps in Java and Kotlin. SEROJA and DIGIBIKES are for the Bank Indonesia employee welfare foundation (YKKBI) and are on Google Play. Sherish is the Android app of a sales monitoring system (website plus mobile) for a furniture company, written in Kotlin; it was published on Google Play and has since been taken down. I also built a wedding-guest invitation app distributed outside the store, and maintained production apps such as the Yellow Truck Coffee app and an Umrah travel booking app: fixing bugs, updating SDKs and shipping new releases.</p>
           <div class="tags"><span class="tag">Java</span><span class="tag">Kotlin</span><span class="tag">Google Play</span></div>
         </article>
       </div>
@@ -522,7 +530,7 @@ footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted);
             <ul>
               <li>Rewrote the IBID auction app from scratch as v3.0 with Clean Architecture, modularization and BLoC, as sole code contributor.</li>
               <li>Created AI-assisted development guidelines that keep generated code consistent with the project architecture.</li>
-              <li>Migrated the core auction platform from native Android and iOS to Flutter (v2.0) with the mobile team, with full feature parity and zero downtime.</li>
+              <li>Migrated the core auction platform from native Android and iOS to Flutter (v2.0) with the mobile team, keeping all existing features working with zero downtime.</li>
               <li>Set up the unit-testing framework and raised coverage to 75%, focused on critical business logic behind high-value bidding transactions.</li>
               <li>Instrumented 152 analytics events in Amplitude to investigate suspicious bidding activity and guide product decisions.</li>
               <li>Used lifecycle-aware Firebase Realtime Database listeners to reduce battery and mobile data usage.</li>
@@ -537,11 +545,10 @@ footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted);
             <p class="co">PT. Sarana Pactindo (PT. Transaksi Monitor Digital)</p>
             <ul>
               <li>Started on contract (01/2022 to 12/2022), then continued full-time from 01/2023.</li>
-              <li>Built a multi-service government platform combining Marketplace and E-Catalogue in a single app.</li>
-              <li>Developed Android EDC apps for field officers collecting parking, waste levies and tax payments, with thermal printer and hardware scanner integration.</li>
-              <li>Implemented Virtual Account and QRIS payments for real-time tax and levy collection.</li>
+              <li>Built LanggananTa, a super app for regional governments with five sub-apps: Pasar, Sentral UMKM, E-Katalog, E-Katalog Lokal, and Layanan Pajak &amp; Retribusi.</li>
+              <li>Built Layanan Pajak, where taxpayers check tax bills and pay through Virtual Account or QRIS, and handled its Android and iOS releases (builds, signing, Google Play and App Store submissions).</li>
+              <li>Developed two Android EDC apps for field officers, Simpada: Retribusi (garbage and market levies) and TMD Spark (parking enforcement), accepting cash, QRIS and debit, with thermal printer and scanner integration.</li>
               <li>Managed complex app state across modules using BLoC, Cubit and MobX.</li>
-              <li>Handled release management for the Layanan Pajak tax app on Android and iOS.</li>
             </ul>
           </div>
         </article>
@@ -552,10 +559,11 @@ footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted);
             <p class="co">Birutekno Inc</p>
             <ul>
               <li>Continued on contract, moving from native Android to Flutter.</li>
-              <li>Built IAPI in Flutter for Indonesian accountants.</li>
-              <li>Contributed to early-phase development of ACSET, a project management app, before leaving mid-development.</li>
+              <li>Built IAPI Mobile in Flutter, the mobile version of the Front Office of the Indonesian Institute of Public Accountants.</li>
+              <li>Built PramukaSapa, an Android reporting app integrated with the BPOM internal website, where Scout Movement members report unsafe processed food.</li>
               <li>Owned the end-to-end release cycle: build, signing, store submission and updates.</li>
               <li>Integrated Firebase Cloud Messaging for push notifications and the Google Maps API for location-based features.</li>
+              <li>Assisted on Spring Boot (Java) backend projects alongside mobile development.</li>
             </ul>
           </div>
         </article>
@@ -566,7 +574,8 @@ footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted);
             <p class="co">Birutekno Inc</p>
             <ul>
               <li>Started as an intern (10/2019 to 12/2019), then converted to a contract Android Developer from 01/2020.</li>
-              <li>Built native Android apps in Java and Kotlin: SEROJA, Sherish and Pramukasapa on Google Play, plus a wedding-guest invitation app distributed outside the store.</li>
+              <li>Used Laravel (PHP) for backend work during the internship, alongside Android development.</li>
+              <li>Built native Android apps in Java and Kotlin: SEROJA and DIGIBIKES for YKKBI (both on Google Play), the Android app of Sherish's sales monitoring system for a furniture company, and a wedding-guest invitation app distributed outside the store.</li>
               <li>Maintained the Yellow Truck Coffee app and an Umrah travel booking app: fixed bugs, updated SDKs and dependencies, and shipped the updated releases.</li>
             </ul>
           </div>
@@ -584,6 +593,7 @@ footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted);
         <dt>Architecture</dt><dd>Clean Architecture, SOLID, Modularization</dd>
         <dt>State management</dt><dd>BLoC/Cubit, MobX</dd>
         <dt>Backend and services</dt><dd>Firebase (RTDB, Firestore, FCM), REST APIs, Amplitude, Google Maps API</dd>
+        <dt>Earlier backend</dt><dd>Laravel (PHP), Spring Boot (Java, as assistant)</dd>
         <dt>Payments and hardware</dt><dd>Virtual Account, QRIS, EDC integration, thermal printers, scanners</dd>
         <dt>Security</dt><dd>Root detection, SSL pinning</dd>
         <dt>Testing</dt><dd>Unit testing</dd>
