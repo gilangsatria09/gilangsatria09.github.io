@@ -71,29 +71,44 @@ h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; li
 p { margin: 0; }
 ul { margin: 0; padding: 0; list-style: none; }
 
-.page { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 48px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--bg); z-index: 10; }
+.page { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 24px; }
 @media (min-width: 900px) {
-  .page { grid-template-columns: 300px minmax(0, 1fr); gap: 72px; }
-  .side { position: sticky; top: 40px; align-self: start; }
+  body { padding-block: 40px 64px; }
+  .page { grid-template-columns: 250px minmax(0, 1fr); gap: 72px; }
+  .side { position: sticky; top: 40px; align-self: start; height: calc(100vh - 80px); min-height: 440px; overflow-y: auto; }
 }
 
-/* Side column */
-.side { display: flex; flex-direction: column; gap: 28px; min-width: 0; }
-.name { font-size: clamp(2.4rem, 6vw, 3.2rem); font-weight: 700; letter-spacing: -0.02em; }
-.role { font-family: var(--font-mono); font-size: 0.82rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 10px; }
-.lede { color: var(--muted); max-width: 34ch; }
-.contact { display: flex; flex-direction: column; gap: 10px; font-size: 0.95rem; }
-.contact .row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.contact .label { font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; width: 64px; flex: none; }
-.contact .val { user-select: all; overflow-wrap: anywhere; min-width: 0; }
+/* Side column: identity, page navigation, contact */
+.side { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.name { font-size: clamp(1.5rem, 5vw, 2.6rem); font-weight: 700; letter-spacing: -0.02em; }
+.role { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 8px; }
+.nav { display: flex; flex-direction: column; gap: 2px; }
+.nav a { font-family: var(--font-mono); font-size: 0.86rem; color: var(--muted); text-decoration: none; padding: 9px 12px; border-radius: 4px; }
+.nav a:hover { color: var(--fg); background: var(--wash); }
+.nav a.on { color: var(--fg); background: var(--wash); font-weight: 500; box-shadow: inset 2px 0 0 var(--accent); }
+.side-contact { margin-top: auto; display: flex; flex-direction: column; gap: 12px; }
+.email-row { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
+.email-text { flex: 1 1 auto; min-width: 0; font-size: 0.88rem; overflow-wrap: anywhere; user-select: all; }
 .btn {
-  font: inherit; font-size: 0.82rem; font-weight: 500; cursor: pointer;
-  background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 4px; padding: 5px 12px;
+  font: inherit; font-size: 0.82rem; font-weight: 500; cursor: pointer; flex: none; min-width: 5.5rem; text-align: center;
+  background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 4px; padding: 6px 12px;
 }
 .btn.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); }
-.nav { display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--font-mono); font-size: 0.82rem; }
-.nav a { color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--line); }
-.nav a:hover { border-color: var(--accent); color: var(--accent); }
+.linkedin { display: block; text-align: center; background: var(--accent); color: var(--accent-ink); text-decoration: none; font-weight: 500; font-size: 0.9rem; border-radius: 4px; padding: 9px 14px; }
+.linkedin:hover { opacity: 0.88; }
+.contact-m { display: none; }
+@media (max-width: 899px) {
+  body { padding-block: 0 48px; }
+  .side { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding: 12px 0 8px; gap: 8px; border-bottom: 1px solid var(--line); }
+  .side .ident { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .side .role { margin-top: 0; }
+  .nav { flex-direction: row; overflow-x: auto; gap: 4px; }
+  .nav a { white-space: nowrap; padding: 7px 12px; }
+  .side-contact { display: none; }
+  .contact-m { display: flex; flex-direction: column; gap: 12px; max-width: 360px; }
+}
+html.js .view:not(.active) { display: none; }
 
 /* Main */
 main { display: flex; flex-direction: column; gap: 64px; min-width: 0; }
@@ -137,8 +152,21 @@ h2 { font-size: clamp(1.6rem, 3.4vw, 2.1rem); font-weight: 700; letter-spacing: 
 .proj p.notice { background: var(--wash); color: var(--fg); border-left: 3px solid var(--accent); border-radius: 3px; padding: 10px 14px; font-size: 0.92rem; }
 .stores { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 4px; }
 .store { display: inline-flex; align-items: center; background: var(--accent); color: var(--accent-ink); text-decoration: none; font-weight: 500; font-size: 0.9rem; border-radius: 4px; padding: 8px 16px; }
+.badge { display: inline-block; border-radius: 8px; }
+.badge img { display: block; height: 44px; width: auto; max-width: 100%; border-radius: 8px; box-shadow: 0 0 0 1px var(--line); }
+.badge:hover { opacity: 0.88; }
+.badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .store:hover { opacity: 0.88; }
 .store:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+
+/* Problem / What I did / Result */
+.pwr { display: grid; grid-template-columns: 1fr; margin: 0; border-top: 1px solid var(--line); }
+@media (min-width: 640px) { .pwr { grid-template-columns: 110px minmax(0, 1fr); column-gap: 20px; } }
+.pwr dt { font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; padding-top: 12px; }
+.pwr dt.res { color: var(--accent); }
+.pwr dd { margin: 0; padding: 4px 0 12px; border-bottom: 1px solid var(--line); max-width: 66ch; min-width: 0; }
+@media (min-width: 640px) { .pwr dt { padding: 12px 0; border-bottom: 1px solid var(--line); } .pwr dd { padding: 10px 0; } }
+.proj .pwr ul { margin: 0; }
 
 /* Case study */
 .story { display: grid; grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--line); margin: 0; }
@@ -216,41 +244,35 @@ footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted);
 </style>
 </head>
 <body>
+<script>document.documentElement.classList.add("js");</script>
+
 <div class="page">
   <aside class="side">
-    <div>
+    <div class="ident">
       <h1 class="name">Gilang Satria</h1>
       <p class="role">Mobile Developer</p>
     </div>
-    <p class="lede">Flutter and native Android developer with 6+ years of experience, working on auctions, payments and regional government services.</p>
-    <p class="goal">Open to senior or lead mobile roles, remote Flutter positions, and mobile products with AI features.</p>
-    <div class="contact">
-      <div class="row">
-        <span class="label">Email</span>
-        <span class="val" id="email">gsatria253@gmail.com</span>
-        <button class="btn" id="copy-email" type="button">Copy</button>
-      </div>
-      <div class="row">
-        <span class="label">LinkedIn</span>
-        <a class="val" href="https://www.linkedin.com/in/gilang-satria-ab5231192" target="_blank" rel="noopener">gilang-satria-ab5231192</a>
-      </div>
-      <div class="row">
-        <span class="label">Based in</span>
-        <span class="val">Depok, Indonesia</span>
+    <nav class="nav" aria-label="Pages">
+      <a href="#profile" data-nav="profile" class="on">Profile</a>
+      <a href="#work" data-nav="work">Work</a>
+      <a href="#architecture" data-nav="architecture">Architecture</a>
+      <a href="#project" data-nav="project">Project</a>
+      <a href="#career" data-nav="career">Career</a>
+      <a href="#skills" data-nav="skills">Skills</a>
+      <a href="#education" data-nav="education">Education</a>
+    </nav>
+    <div class="side-contact">
+      <a class="linkedin" href="https://www.linkedin.com/in/gilang-satria-ab5231192" target="_blank" rel="noopener">Find me on LinkedIn</a>
+      <div class="email-row">
+        <span class="email-text">gsatria253@gmail.com</span>
+        <button class="btn copy-email" type="button">Copy</button>
       </div>
     </div>
-    <nav class="nav" aria-label="Sections">
-      <a href="#work">Work</a>
-      <a href="#architecture">Architecture</a>
-      <a href="#project">Project</a>
-      <a href="#career">Career</a>
-      <a href="#skills">Skills</a>
-      <a href="#education">Education</a>
-    </nav>
   </aside>
 
   <main>
-    <section id="about">
+    <section class="view active" id="profile">
+      <p class="eyebrow">Profile</p>
       <p class="hero-line">Mobile apps for <em>auctions, payments</em> and field work.</p>
       <p class="about">I started in native Android in 2019 and have built in Flutter since 2020. My work centers on transaction reliability, security and performance. At PT Serasi Autoraya I rewrote the IBID auction app from scratch as v3.0, as its only code contributor, and earlier helped migrate the auction platform from native Android and iOS to Flutter with zero downtime.</p>
       <div class="facts">
@@ -259,9 +281,24 @@ footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted);
         <div class="fact"><span class="n">152</span><span class="t">analytics events instrumented</span></div>
         <div class="fact"><span class="n">0</span><span class="t">downtime in the Flutter migration</span></div>
       </div>
+      <dl class="story">
+        <dt>Focus</dt>
+        <dd>Flutter and native Android, with 6+ years of experience on auctions, payments and regional government services.</dd>
+        <dt>Open to</dt>
+        <dd>Senior or lead mobile roles, remote Flutter positions, and mobile products with AI features.</dd>
+        <dt>Based in</dt>
+        <dd>Depok, Indonesia</dd>
+      </dl>
+      <div class="contact-m">
+        <a class="linkedin" href="https://www.linkedin.com/in/gilang-satria-ab5231192" target="_blank" rel="noopener">Find me on LinkedIn</a>
+        <div class="email-row">
+          <span class="email-text">gsatria253@gmail.com</span>
+          <button class="btn copy-email" type="button">Copy</button>
+        </div>
+      </div>
     </section>
 
-    <section id="work">
+    <section class="view" id="work">
       <div>
         <p class="eyebrow">Selected work</p>
         <h2>Things I have built</h2>
@@ -273,30 +310,24 @@ footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted);
             <h3>IBID v3.0 auction app</h3>
             <span class="meta">PT Serasi Autoraya · 2023 to now</span>
           </header>
-          <p>A from-scratch rewrite of the IBID auction app, built for long-term scalability and maintainability. I am the sole code contributor.</p>
-          <ul>
-            <li>Structured with Clean Architecture, modularization and BLoC.</li>
-            <li>Wrote AI-assisted development guidelines (Claude Code skills and markdown rule files) that encode the architecture layers, module boundaries and BLoC conventions, so generated code stays consistent with the project.</li>
-            <li>Carried over from v2.0: root detection, USB debugging restrictions and SSL pinning against fraud.</li>
-            <li>Also carried over from v2.0: Firebase Realtime Database listeners that only run while the relevant screens are active, which cuts battery and mobile data use.</li>
-            <li>Unit testing and Amplitude analytics are planned for v3.0. Both are currently in v2.0.</li>
-          </ul>
-          <div class="tags"><span class="tag">Flutter</span><span class="tag">BLoC</span><span class="tag">Clean Architecture</span><span class="tag">Firebase RTDB</span><span class="tag">SSL pinning</span></div>
+          <dl class="pwr">
+            <dt>Problem</dt><dd>v2.0 was built by a team where every developer worked in their own style. The project structure and the navigation library were poor choices, and the codebase became messy and hard to scale.</dd>
+            <dt>What I did</dt><dd><ul><li>Rewrote the app from scratch as the sole code contributor, using Clean Architecture, feature-based modularization managed with Melos, and BLoC.</li><li>Wrote AI-assisted development guidelines (Claude Code skills and markdown rule files) that encode the architecture layers, module boundaries and conventions.</li><li>Carried over from v2.0: root detection, USB debugging restrictions, SSL pinning, and Firebase Realtime Database listeners that only run on relevant screens.</li></ul></dd>
+            <dt class="res">Result</dt><dd>A stand-alone module per feature, so several developers can build in parallel without conflicts, and generated code follows the same conventions. In progress and not released yet. Unit testing and Amplitude analytics are planned for v3.0 and exist in v2.0.</dd>
+          </dl>
+          <div class="tags"><span class="tag">Flutter</span><span class="tag">BLoC</span><span class="tag">Clean Architecture</span><span class="tag">Melos</span><span class="tag">Firebase RTDB</span><span class="tag">SSL pinning</span></div>
           <p class="notice"><strong>Note:</strong> v3.0 is still in progress and is not released yet. The version currently on the Play Store and App Store is v2.0.</p>
         </article>
-
         <article class="proj">
           <header>
             <h3>IBID v2.0, native apps to Flutter</h3>
             <span class="meta">PT Serasi Autoraya · mobile team</span>
           </header>
-          <p>Migrated the core auction platform from separate native Android and iOS apps to a single Flutter codebase with the mobile team. All existing features kept working, with zero downtime. This is the version currently on the Play Store and App Store.</p>
-          <ul>
-            <li>State management uses BLoC, the same pattern as v3.0.</li>
-            <li>Root detection, USB debugging restrictions, SSL pinning and lifecycle-aware Firebase Realtime Database listeners (lower battery and data use) are in both v2.0 and v3.0.</li>
-            <li>Set up the unit-testing framework and raised coverage to 75%, focused on critical business logic behind high-value bidding transactions.</li>
-            <li>Instrumented 152 Amplitude events, used to investigate suspicious bidding flagged through user complaints and to guide product decisions.</li>
-          </ul>
+          <dl class="pwr">
+            <dt>Problem</dt><dd>The auction platform ran as two separate native apps, one for Android and one for iOS.</dd>
+            <dt>What I did</dt><dd><ul><li>Migrated both to a single Flutter codebase with the mobile team, using BLoC for state management.</li><li>Set up the unit-testing framework, focused on critical business logic behind high-value bidding transactions.</li><li>Instrumented 152 Amplitude events.</li><li>Added root detection, USB debugging restrictions, SSL pinning and lifecycle-aware Firebase listeners (lower battery and data use).</li></ul></dd>
+            <dt class="res">Result</dt><dd>All existing features kept working, with zero downtime. This is the version on the Play Store and App Store today. Coverage reached 75% on bidding logic, and the analytics data is used to investigate suspicious bidding flagged through user complaints and to guide product decisions.</dd>
+          </dl>
           <div class="tags"><span class="tag">Flutter</span><span class="tag">BLoC</span><span class="tag">Native Android</span><span class="tag">Native iOS</span><span class="tag">Migration</span><span class="tag">Unit testing</span><span class="tag">Amplitude</span></div>
           <div class="shots" role="group" aria-label="IBID v2.0 screenshots">
             <figure class="shot">
@@ -317,71 +348,86 @@ footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted);
             </figure>
           </div>
           <div class="stores">
-            <a class="store" href="https://play.google.com/store/apps/details?id=com.sera.ibid" target="_blank" rel="noopener">Get it on Google Play</a>
-            <a class="store" href="https://apps.apple.com/us/app/ibid-balai-lelang-astra/id1501501381" target="_blank" rel="noopener">Download on the App Store</a>
+            <a class="badge" href="https://play.google.com/store/apps/details?id=com.sera.ibid" target="_blank" rel="noopener"><img src="shots/badge-play.png" width="406" height="120" alt="Get it on Google Play"></a>
+            <a class="badge" href="https://apps.apple.com/us/app/ibid-balai-lelang-astra/id1501501381" target="_blank" rel="noopener"><img src="shots/badge-appstore.png" width="404" height="120" alt="Download on the App Store"></a>
           </div>
         </article>
-
         <article class="proj">
           <header>
             <h3>LanggananTa super app</h3>
             <span class="meta">PT. Sarana Pactindo · 2022 to 2023</span>
           </header>
-          <p>A super app for regional governments with five sub-apps: Pasar, Sentral UMKM, E-Katalog, E-Katalog Lokal, and Layanan Pajak &amp; Retribusi.</p>
-          <ul>
-            <li>Managed complex state across modules with BLoC, Cubit and MobX.</li>
-          </ul>
+          <dl class="pwr">
+            <dt>Problem</dt><dd>Regional governments needed several public services, from markets and SME sales to e-catalogues, taxes and levies, available to citizens through one app.</dd>
+            <dt>What I did</dt><dd>Built the super app with five sub-apps: Pasar, Sentral UMKM, E-Katalog, E-Katalog Lokal, and Layanan Pajak &amp; Retribusi. Managed complex state across modules with BLoC, Cubit and MobX.</dd>
+            <dt class="res">Result</dt><dd>Five regional government services shipped in a single app.</dd>
+          </dl>
           <div class="tags"><span class="tag">Flutter</span><span class="tag">BLoC / Cubit</span><span class="tag">MobX</span><span class="tag">Super app</span></div>
         </article>
-
         <article class="proj">
           <header>
             <h3>Layanan Pajak</h3>
             <span class="meta">PT. Sarana Pactindo</span>
           </header>
-          <p>Taxpayers check their tax bills and pay through Virtual Account or QRIS. I built the payment flows and handled the Android and iOS releases: builds, signing and submissions to Google Play and the App Store.</p>
+          <dl class="pwr">
+            <dt>Problem</dt><dd>Taxpayers needed to check their tax bills and pay them digitally.</dd>
+            <dt>What I did</dt><dd>Built the payment flows with Virtual Account and QRIS, and handled the Android and iOS releases: builds, signing, and submissions to Google Play and the App Store.</dd>
+            <dt class="res">Result</dt><dd>Taxpayers can pay tax bills through Virtual Account or QRIS, and I took each release from build to store submission.</dd>
+          </dl>
           <div class="tags"><span class="tag">QRIS</span><span class="tag">Virtual Account</span><span class="tag">Release management</span><span class="tag">Google Play</span><span class="tag">App Store</span></div>
         </article>
-
         <article class="proj">
           <header>
             <h3>Simpada: Retribusi and TMD Spark</h3>
             <span class="meta">PT. Sarana Pactindo</span>
           </header>
-          <p>Two Android EDC apps for field officers: Simpada: Retribusi collects garbage and market levies, and TMD Spark supports parking enforcement. Both accept cash, QRIS and debit, and integrate with thermal printers and scanners.</p>
+          <dl class="pwr">
+            <dt>Problem</dt><dd>Field officers who collect garbage and market levies, and who enforce parking, needed to take payments on the spot.</dd>
+            <dt>What I did</dt><dd>Developed two Android EDC apps that accept cash, QRIS and debit, with integration for thermal printers and scanners.</dd>
+            <dt class="res">Result</dt><dd>Officers can take cash, QRIS or debit payments and print from the device in the field.</dd>
+          </dl>
           <div class="tags"><span class="tag">Android</span><span class="tag">EDC</span><span class="tag">QRIS</span><span class="tag">Thermal printers</span><span class="tag">Scanners</span></div>
         </article>
-
         <article class="proj">
           <header>
             <h3>IAPI Mobile</h3>
             <span class="meta">Birutekno Inc · 2020 to 2021</span>
           </header>
-          <p>The Flutter mobile version of the Front Office of the Indonesian Institute of Public Accountants (IAPI), giving users direct access to information on all IAPI services. I owned the release cycle from build and signing to store submission and updates, and integrated Firebase Cloud Messaging and the Google Maps API.</p>
+          <dl class="pwr">
+            <dt>Problem</dt><dd>Users of the Indonesian Institute of Public Accountants (IAPI) needed direct access to information on all IAPI services from their phones.</dd>
+            <dt>What I did</dt><dd>Built the Flutter mobile version of the IAPI Front Office. Integrated Firebase Cloud Messaging and the Google Maps API, and owned the release cycle from build and signing to store submission and updates.</dd>
+            <dt class="res">Result</dt><dd>IAPI services are available in a mobile app, with push notifications and location features.</dd>
+          </dl>
           <div class="tags"><span class="tag">Flutter</span><span class="tag">FCM</span><span class="tag">Google Maps API</span></div>
         </article>
-
         <article class="proj">
           <header>
             <h3>PramukaSapa</h3>
             <span class="meta">Birutekno Inc · 2020</span>
           </header>
-          <p>An Android reporting app integrated with the BPOM internal website. Scout Movement members use it to report expired, damaged or unauthorized processed food found in circulation.</p>
+          <dl class="pwr">
+            <dt>Problem</dt><dd>Expired, damaged or unauthorized processed food was circulating, and Scout Movement members had no direct way to report it to BPOM.</dd>
+            <dt>What I did</dt><dd>Built an Android reporting app integrated with the BPOM internal website.</dd>
+            <dt class="res">Result</dt><dd>Scout Movement members can report their findings straight into the BPOM system.</dd>
+          </dl>
           <div class="tags"><span class="tag">Android</span><span class="tag">Reporting</span></div>
         </article>
-
         <article class="proj">
           <header>
             <h3>SEROJA, DIGIBIKES and Sherish</h3>
             <span class="meta">Birutekno Inc · 2019 to 2020</span>
           </header>
-          <p>Native Android apps in Java and Kotlin. SEROJA and DIGIBIKES are for the Bank Indonesia employee welfare foundation (YKKBI) and are on Google Play. Sherish is the Android app of a sales monitoring system (website plus mobile) for a furniture company, written in Kotlin; it was published on Google Play and has since been taken down. I also built a wedding-guest invitation app distributed outside the store, and maintained production apps such as the Yellow Truck Coffee app and an Umrah travel booking app: fixing bugs, updating SDKs and shipping new releases.</p>
+          <dl class="pwr">
+            <dt>Problem</dt><dd>Three clients needed native Android apps: the Bank Indonesia employee welfare foundation (YKKBI) for two of them, and a furniture company for a sales monitoring system.</dd>
+            <dt>What I did</dt><dd><ul><li>Built all three in Java and Kotlin. Sherish is the Android app of a website plus mobile sales monitoring system, written in Kotlin.</li><li>Also built a wedding-guest invitation app distributed outside the store, and maintained production apps such as Yellow Truck Coffee and an Umrah travel booking app: fixing bugs, updating SDKs and shipping new releases.</li></ul></dd>
+            <dt class="res">Result</dt><dd>SEROJA and DIGIBIKES are on Google Play. Sherish was published on Google Play and has since been taken down.</dd>
+          </dl>
           <div class="tags"><span class="tag">Java</span><span class="tag">Kotlin</span><span class="tag">Google Play</span></div>
         </article>
       </div>
     </section>
 
-    <section id="architecture">
+    <section class="view" id="architecture">
       <div>
         <p class="eyebrow">Case study</p>
         <h2>Why IBID v3.0 is modular</h2>
@@ -440,7 +486,7 @@ footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted);
       </figure>
     </section>
 
-    <section id="project">
+    <section class="view" id="project">
       <div>
         <p class="eyebrow">Public project</p>
         <h2>Code you can read</h2>
@@ -456,7 +502,7 @@ footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted);
           <li>An optional receipt reader that sends a photo to the Gemini API and fills in the split-bill items.</li>
           <li>Local reminders, JSON import, and backup and restore.</li>
           <li>Unit and widget tests written with bloc_test and mocktail.</li>
-          <li>Layered but not modular, on purpose. One developer and one small app have no need for module boundaries, which is the opposite of the IBID v3.0 case above.</li>
+          <li>Layered but not modular, on purpose. One developer and one small app have no need for module boundaries, which is the opposite of the IBID v3.0 case on the Architecture page.</li>
         </ul>
         <div class="tags"><span class="tag">Flutter</span><span class="tag">BLoC</span><span class="tag">Clean Architecture</span><span class="tag">Drift</span><span class="tag">get_it</span><span class="tag">SQLite</span><span class="tag">Gemini API</span></div>
         <div class="shots" role="group" aria-label="CC Expense Tracker screenshots">
@@ -483,7 +529,7 @@ footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted);
       </article>
     </section>
 
-    <section id="career">
+    <section class="view" id="career">
       <div>
         <p class="eyebrow">Career</p>
         <h2>From native Android to Flutter</h2>
@@ -583,7 +629,7 @@ footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted);
       </div>
     </section>
 
-    <section id="skills">
+    <section class="view" id="skills">
       <div>
         <p class="eyebrow">Skills</p>
         <h2>What I work with</h2>
@@ -603,7 +649,7 @@ footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted);
       </dl>
     </section>
 
-    <section id="education">
+    <section class="view" id="education">
       <div>
         <p class="eyebrow">Education</p>
         <h2>Studying while working</h2>
@@ -629,26 +675,44 @@ footer { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted);
 
 <script>
 (function () {
-  var btn = document.getElementById("copy-email");
-  var el = document.getElementById("email");
-  btn.addEventListener("click", function () {
-    var text = el.textContent.trim();
-    function selectText() {
-      var r = document.createRange();
-      r.selectNodeContents(el);
-      var s = window.getSelection();
-      s.removeAllRanges();
-      s.addRange(r);
-      btn.textContent = "Selected";
-    }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function () {
-        btn.textContent = "Copied";
-      }, selectText);
-    } else {
-      selectText();
-    }
-    setTimeout(function () { btn.textContent = "Copy"; }, 1800);
+  var views = Array.prototype.slice.call(document.querySelectorAll(".view"));
+  var links = Array.prototype.slice.call(document.querySelectorAll("[data-nav]"));
+  var ids = views.map(function (v) { return v.id; });
+  function show(id) {
+    if (ids.indexOf(id) < 0) id = "profile";
+    views.forEach(function (v) { v.classList.toggle("active", v.id === id); });
+    links.forEach(function (a) {
+      var on = a.getAttribute("data-nav") === id;
+      a.classList.toggle("on", on);
+      if (on) { a.setAttribute("aria-current", "page"); } else { a.removeAttribute("aria-current"); }
+    });
+    window.scrollTo(0, 0);
+  }
+  links.forEach(function (a) {
+    a.addEventListener("click", function (e) { e.preventDefault(); show(a.getAttribute("data-nav")); });
+  });
+  window.addEventListener("hashchange", function () { show(location.hash.replace("#", "")); });
+  if (location.hash) show(location.hash.replace("#", ""));
+
+  Array.prototype.forEach.call(document.querySelectorAll(".copy-email"), function (btn) {
+    var el = btn.parentNode.querySelector(".email-text");
+    btn.addEventListener("click", function () {
+      var text = el.textContent.trim();
+      function selectText() {
+        var r = document.createRange();
+        r.selectNodeContents(el);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(r);
+        btn.textContent = "Selected";
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { btn.textContent = "Copied"; }, selectText);
+      } else {
+        selectText();
+      }
+      setTimeout(function () { btn.textContent = "Copy"; }, 1800);
+    });
   });
 })();
 </script>
